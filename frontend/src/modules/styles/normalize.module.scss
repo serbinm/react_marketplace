@@ -1,0 +1,67 @@
+// not empty
+// @import url('./modules/HomePage/components/Header/Header.module.scss');
+@function size-768($min, $max, $viewport-max, $viewport-min) {
+  $diff: $max - $min;
+
+  @return calc(
+    #{$min + px} + $diff * ((100vw - #{$viewport-min + px}) / $viewport-max) * 2
+  );
+}
+
+@function size-1400($min, $max, $container-size) {
+  // $min = minimum, $max = maximum
+  $diff: $max - $min;
+
+  @return calc(#{$min + px} + $diff * ((100vw - 768px) / $container-size) * 2);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+
+  // font-family: 'Mont' sans-serif;
+  min-width: 320px;
+}
+
+ul li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  // стили для всего после 768px
+  max-width: 1136px;
+
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    padding: 0 32px;
+  }
+
+  @media (max-width: 768px) {
+    // стили для всего до 768
+  }
+
+  @media (max-width: 640px) {
+    padding: 0 16px;
+  }
+}
+
+button {
+  font-family: Mont, sans-serif;
+}

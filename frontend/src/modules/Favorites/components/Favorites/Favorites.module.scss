@@ -1,0 +1,56 @@
+@import '/src/modules/styles/variables.module';
+
+.favoritesContainer {
+  padding-top: 24px;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.navText {
+  font-family: Mont, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: $gray-secondary;
+}
+
+.navArrow {
+  width: 16px;
+  height: 16px;
+  background: url('/public/img/icons/arrow-right-disabled.svg') no-repeat center
+    center;
+}
+
+.favoritesHeader {
+  display: flex;
+  flex-direction: column;
+  margin-top: 33px;
+  gap: 10px;
+  margin-bottom: 41px;
+}
+
+.favoritesTitle {
+  font-family: Mont, sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 56px;
+  color: $gray-white;
+}
+
+.favoritesNumber {
+  font-family: Mont, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: $gray-secondary;
+}
+
+.favoritesWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 40px 16px;
+  flex-wrap: wrap;
+}

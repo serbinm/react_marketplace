@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1754493156608,
+    "title": "And another one",
+    "description": "A sleek silver car glided down the quiet road, its engine humming softly. Sunlight reflected off polished metal, while smooth tires hugged every curve. Inside, leather seats embraced passengers with comfort. The dashboard glowed with modern technology, guiding the journey ahead. Speed, style, and safety combined in perfect harmony.",
+    "price": "123",
+    "phoneNumber": "733968487",
+    "email": "serbin.nick@gmail.com",
+    "contactPerson": "Mykola Serbinаа",
+    "category": "phones",
+    "quality": "new",
+    "ownerId": 1753275447472,
+    "images": [
+      "/uploads/1755460419367-Classic Camaro SS Sunset Cruise.jpeg"
+    ]
+  },
+  {
+    "id": 1754924507673,
+    "title": "Dont forget the quarter",
+    "description": "A sleek silver car glided down the quiet road, its engine humming softly. Sunlight reflected off polished metal, while smooth tires hugged every curve. Inside, leather seats embraced passengers with comfort. The dashboard glowed with modern technology, guiding the journey ahead. Speed, style, and safety combined in perfect harmony.",
+    "price": "123",
+    "phoneNumber": "73396848722",
+    "email": "serbin.nick@gmail.com",
+    "contactPerson": "Mykola Serbinaasd",
+    "category": "phones",
+    "quality": "new",
+    "ownerId": 1753275447472,
+    "images": []
+  },
+  {
+    "id": 1754924510517,
+    "title": "Dont forget the quarter",
+    "description": "A sleek silver car glided down the quiet road, its engine humming softly. Sunlight reflected off polished metal, while smooth tires hugged every curve. Inside, leather seats embraced passengers with comfort. The dashboard glowed with modern technology, guiding the journey ahead. Speed, style, and safety combined in perfect harmony.",
+    "price": "123",
+    "phoneNumber": "733968487",
+    "email": "serbin.nick@gmail.com",
+    "contactPerson": "Mykola Serbina",
+    "category": "phones",
+    "quality": "new",
+    "ownerId": 1753275447472,
+    "images": []
+  },
+  {
+    "id": 1754936790741,
+    "title": "Dont forget the quarterфыв",
+    "description": "A sleek silver car glided down the quiet road, its engine humming softly. Sunlight reflected off polished metal, while smooth tires hugged every curve. Inside, leather seats embraced passengers with comfort. The dashboard glowed with modern technology, guiding the journey ahead. Speed, style, and safety combined in perfect harmony.",
+    "price": "123",
+    "phoneNumber": "733968487",
+    "email": "serbin.nick@gmail.com",
+    "contactPerson": "Mykola Serbinss",
+    "category": "phones",
+    "quality": "new",
+    "ownerId": 1753275447472,
+    "images": [
+      "/uploads/1754936790730-photo_3_2025-07-30_22-11-20.jpg"
+    ]
+  },
+  {
+    "id": 1754948347501,
+    "title": "Tet",
+    "description": "asdasd",
+    "price": "220",
+    "phoneNumber": "733968487",
+    "email": "serbin.nick@gmail.com",
+    "contactPerson": "Mykola Serbin",
+    "category": "phones",
+    "quality": "new",
+    "ownerId": 1753275447472,
+    "images": [
+      "/uploads/1755106494191-photo_2_2025-07-30_22-11-20.jpg"
+    ]
+  },
+  {
+    "id": 1755968348668,
+    "title": "aws",
+    "description": "aws",
+    "price": "123",
+    "phoneNumber": "123",
+    "email": "serbin.nick@gmail.com",
+    "contactPerson": "aws",
+    "category": "tablets",
+    "quality": "used",
+    "ownerId": 1753275447472,
+    "images": [
+      "https://phone-catalog-marketplace-images-12976.s3.eu-north-1.amazonaws.com/1755968348070-image.png"
+    ]
+  }
+]

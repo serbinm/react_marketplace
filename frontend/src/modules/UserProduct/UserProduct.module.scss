@@ -1,0 +1,121 @@
+@import '/src/modules/styles/variables.module';
+
+.title {
+  color: white;
+}
+
+.userProduct__container {
+  padding: 20px;
+  // background-color: $surface-2;
+  border-radius: 10px;
+  display: flex;
+  gap: 30px;
+}
+
+.imageContainer {
+  width: 300px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.imageBtn {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background-color: $surface-2;
+  position: absolute;
+  z-index: 10;
+
+  cursor: pointer;
+  &:hover {
+    background-color: $surface-icons;
+  }
+  &--prev {
+    left: 0;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: url('/public/img/icons/arrow-left.svg') no-repeat center
+        center;
+      background-size: contain;
+      z-index: 100;
+    }
+  }
+
+  &--next {
+    right: 0;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: url('/public/img/icons/arrow-right.svg') no-repeat center
+        center;
+      background-size: contain;
+      z-index: 100;
+    }
+  }
+}
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+
+  &--description {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.title {
+  font-family: Mont 'sans-serif';
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 41px;
+  color: $gray-white;
+}
+
+.name {
+  font-family: Mont 'sans-serif';
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 21px;
+  color: $gray-secondary;
+}
+
+.value {
+  font-family: Mont 'sans-serif';
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 21px;
+  letter-spacing: 0%;
+  color: $gray-white;
+
+  &--description {
+    line-height: 32px;
+  }
+}

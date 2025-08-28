@@ -1,0 +1,18 @@
+@import './modules/styles/normalize.module';
+@import './modules/styles/variables.module';
+@import '/src/modules/styles/fonts.module';
+@import './modules/HomePage/HomePage.module';
+@import './modules/Phones/Phones.module';
+@import './modules/ProductsList/ProductsList.module';
+@import './modules/ProductCard/ProductCard.module';
+@import './modules/ItemCard/ItemCard.module';
+@import './modules/Favorites/components/Favorites/Favorites.module';
+@import './modules/Register/Register.module';
+@import './modules/CreatePost/CreatePost.module';
+@import './modules/Marketplace/Marketplace.module';
+@import './modules/MyProducts/MyProducts.module';
+@import './modules/ShortNav/ShortNav.module';
+
+body {
+  background-color: $gray-black;
+}

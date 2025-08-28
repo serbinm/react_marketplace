@@ -1,0 +1,48 @@
+$gray-black: #0f1121;
+$gray-white: #f1f2f9;
+$gray-secondary: #75767f;
+$gray-element: #3b3e4a;
+$surface-1: #161827;
+$surface-2: #323542;
+$surface-icons: #4a4d58;
+$pink-regular: #905bff;
+$pink-hover: #a378ff;
+$gray-button-selected: #323542;
+
+@function size-1200($min, $max, $container-size) {
+  // $min = minimum, $max = maximum
+  $diff: $max - $min;
+
+  @return calc(#{$min + px} + $diff * ((100vw - 640px) / $container-size) * 2);
+}
+
+@function size-640($min, $max, $container-size) {
+  $diff: $max - $min;
+
+  @return calc(#{$min + px} + $diff * ((100vw - 320px) / $container-size) * 2);
+}
+
+@mixin title-h1 {
+  font-family: Mont, sans-serif;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.01em;
+  font-weight: bold;
+  color: $gray-white;
+}
+
+@mixin title-h2 {
+  font-family: Mont, sans-serif;
+  font-size: 32px;
+  line-height: 41px;
+  letter-spacing: -0.01em;
+  color: $gray-white;
+
+  @media (max-width: 640px) {
+    font-size: size-640(22, 32, 640);
+  }
+}
+
+// h1 { так подключается
+//   @include title-style;
+// }

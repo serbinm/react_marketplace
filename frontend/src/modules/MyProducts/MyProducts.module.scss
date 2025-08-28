@@ -1,0 +1,13 @@
+@import '/src/modules/styles/variables.module';
+
+.title {
+  color: $gray-white;
+  font-family: Mont, 'sans-serif';
+}
+
+.userProducts {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 30px;
+}

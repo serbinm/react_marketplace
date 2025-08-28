@@ -1,0 +1,20 @@
+@import '/src/modules/styles/variables.module';
+.title,
+p,
+strong {
+  color: white;
+}
+
+.register {
+  font-family: Mont, sans-serif;
+}
+.loginOption {
+  color: $pink-regular;
+  background: none;
+  cursor: pointer;
+  font-family: Mont, sans-serif;
+
+  &:hover {
+    color: $pink-hover;
+  }
+}

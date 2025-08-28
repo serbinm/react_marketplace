@@ -1,0 +1,298 @@
+@import '/src/modules/styles/variables.module';
+@import 'swiper/css';
+
+@function size-1200($min, $max, $container-size) {
+  // $min = minimum, $max = maximum
+  $diff: $max - $min;
+
+  @return calc(#{$min + px} + $diff * ((100vw - 640px) / $container-size) * 2);
+}
+
+.welcome {
+  padding-bottom: 78px;
+  &__container {
+    background-color: $gray-black;
+    padding-top: 56px;
+
+    @media (max-width: 1200px) {
+      padding-top: size-1200(32, 56, 1200);
+    }
+    &.welcome__container--swiper {
+      @media (max-width: 640px) {
+        padding: 0;
+      }
+    }
+  }
+
+  &__title {
+    color: $gray-white;
+    font-family: Mont, sans-serif;
+    font-size: 48px;
+    line-height: 56px;
+    letter-spacing: -0.01em;
+    font-weight: bold;
+
+    @media (max-width: 640px) {
+      font-size: 32px;
+      line-height: 41px;
+      margin-bottom: 32px;
+    }
+  }
+
+  &-swiper {
+    position: relative;
+    padding-bottom: 32px;
+
+    @media (max-width: 1200px) {
+      padding-bottom: size-1200(16, 32, 1200);
+    }
+
+    &__swiper {
+      max-width: 1040px;
+      box-sizing: border-box;
+
+      @media (max-width: 1200px) {
+        height: size-1200(215, 432, 1200);
+        padding-bottom: size-1200(16, 32, 1200);
+        max-width: size-1200(490, 1040, 1200);
+      }
+
+      @media (max-width: 640px) {
+        max-width: 100%;
+        height: auto;
+        padding-bottom: 20px;
+      }
+    }
+
+    &__item {
+      display: flex;
+      padding: 13px;
+      box-sizing: border-box;
+      background-color: black;
+      color: white;
+      height: 400px;
+
+      @media (max-width: 1200px) {
+        height: size-1200(189, 400, 1200);
+      }
+
+      @media (max-width: 640px) {
+        display: inline-block;
+
+        // height: auto;
+        // width: auto;
+
+        padding: 0;
+        width: 100%;
+        min-height: 320px;
+        max-height: 640px;
+
+        background-color: white;
+
+        &--slide1 {
+          background: url('/public/img/homepage/welcome-slide1.webp') no-repeat;
+          background-size: 100% 100%;
+          padding-top: 100%;
+        }
+        &--slide2 {
+          background: url('/public/img/homepage/welcome-slide2.webp') no-repeat;
+          background-size: 100% 100%;
+          padding-top: 100%;
+        }
+        &--slide3 {
+          background: url('/public/img/homepage/welcome-slide3.webp') no-repeat;
+          background-size: 100% 100%;
+          padding-top: 100%;
+        }
+      }
+    }
+
+    &__box {
+      // flex-grow: 1;
+      width: 466px;
+      height: 100%;
+      background-color: #222;
+      border-radius: 23px;
+      padding: 42px 47px;
+
+      @media (max-width: 1200px) {
+        width: size-1200(233, 466, 1200);
+        padding: size-1200(21, 42, 1200) size-1200(23, 47, 1200);
+      }
+
+      @media (max-width: 640px) {
+        display: none;
+      }
+    }
+
+    &__image {
+      margin-left: auto;
+      margin-top: auto;
+
+      // height: 100%;
+      max-width: 500px;
+
+      @media (max-width: 1200px) {
+        max-width: size-1200(225, 500, 1200);
+      }
+
+      @media (max-width: 640px) {
+        // margin: 0;
+        // width: 100%;
+        // padding-top: 100%;
+        // width: 100%;
+        // padding-top: 100%;
+        display: none;
+      }
+    }
+
+    &__title {
+      background: linear-gradient(90deg, #7a4ef5, #d862fe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: Mont, sans-serif;
+      font-weight: bold;
+
+      font-size: 45px;
+      line-height: 51px;
+      letter-spacing: -0.01em;
+
+      @media (max-width: 1200px) {
+        font-size: size-1200(23, 45, 1200);
+        line-height: size-1200(26, 51, 1200);
+      }
+
+      &--emoji {
+        background: none;
+        background-clip: border-box;
+        -webkit-background-clip: border-box;
+        -webkit-text-fill-color: initial;
+        color: initial;
+      }
+    }
+
+    &__text {
+      margin-top: 8px;
+      font-family: Mont, sans-serif;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      color: #aeaeae;
+
+      @media (max-width: 1200px) {
+        font-size: size-1200(10, 16, 1200);
+        line-height: size-1200(22, 51, 1200);
+      }
+    }
+    &__link {
+      display: flex;
+      border: 1px solid $gray-element;
+      width: 200px;
+      height: 61px;
+      color: white;
+      margin-top: 93px;
+      font-family: Mont, sans-serif;
+      text-transform: uppercase;
+      justify-content: center;
+      align-items: center;
+      padding-top: 3px;
+      border-radius: 50px;
+
+      @media (max-width: 1200px) {
+        width: size-1200(100, 200, 1200);
+        height: size-1200(30, 61, 1200);
+        margin-top: size-1200(15, 93, 1200);
+        font-size: size-1200(10, 16, 1200);
+      }
+
+      &:hover {
+        background-color: $pink-regular;
+      }
+
+      &:active {
+        background-color: $gray-button-selected;
+      }
+    }
+    .welcome-swiper {
+      &__wrapper {
+        // width: 300px;
+      }
+
+      &__swiper {
+        @media (max-width: 640px) {
+          padding-bottom: 20px;
+        }
+      }
+      &__button {
+        background-color: $surface-2;
+        width: 32px;
+        height: 400px;
+
+        // position: relative;
+        top: 21px;
+        z-index: 10;
+
+        @media (max-width: 1200px) {
+          height: size-1200(189, 400, 1200);
+
+          // width: size-1200()
+        }
+
+        @media (max-width: 640px) {
+          display: none;
+        }
+
+        &:hover {
+          background-color: $surface-icons;
+        }
+
+        &:active {
+          background-color: $surface-2;
+        }
+
+        &--prev {
+          left: 0;
+          &::after {
+            color: white;
+
+            // width: 10px;
+            // height: 6px;
+            width: 16px;
+            height: 16px;
+            content: '';
+            background-image: url('/public/img/icons/arrow-left.svg');
+          }
+        }
+
+        &--next {
+          right: 0;
+          &::after {
+            color: white;
+
+            // width: 10px;
+            // height: 6px;
+            width: 16px;
+            height: 16px;
+            content: '';
+            background-image: url('/public/img/icons/arrow-right.svg');
+          }
+        }
+      }
+
+      &__pagination {
+        .swiper-pagination-bullet {
+          border-radius: 0;
+          width: 14px;
+          height: 4px;
+          background-color: $gray-element;
+
+          @media (max-width: 1200px) {
+            margin: 0 8px;
+          }
+          &-active {
+            background-color: $gray-white;
+          }
+        }
+      }
+    }
+  }
+}
