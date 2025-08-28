@@ -1,28 +1,28 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const helmet = require("helmet");
 // #region mongoose + users + posts
-require('dotenv').config();
-const mongoose = require('mongoose');
-const path = require('path');
+require("dotenv").config();
+const mongoose = require("mongoose");
+const path = require("path");
 
 // const User = require('./models/user.model');
-const User = require('./models/user.model');
-const Post = require('./models/post.model');
-const Product = require('./models/product.model');
-const HotDeal = require('./models/hotDeal.model');
+const User = require("./models/user.model");
+const Post = require("./models/post.model");
+const Product = require("./models/product.model");
+const HotDeal = require("./models/hotDeal.model");
 
 mongoose
   .connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB connected successfully.'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log("MongoDB connected successfully."))
+  .catch((err) => console.error("MongoDB connection error:", err));
 // #endregion
 
 // multer + .env variables
 // const AWS = require('aws-sdk');
-const { S3Client, DeleteObjectCommand } = require('@aws-sdk/client-s3'); // Добавляем DeleteObjectCommand
-const multerS3 = require('multer-s3');
+const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3"); // Добавляем DeleteObjectCommand
+const multerS3 = require("multer-s3");
 
 // Settings of AWS SDK
 const s3 = new S3Client({
@@ -34,9 +34,9 @@ const s3 = new S3Client({
 });
 
 // --- ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ УДАЛЕНИЯ ИЗ S3 ---
-const deleteS3Object = async fileUrl => {
+const deleteS3Object = async (fileUrl) => {
   try {
-    const key = fileUrl.split('/').pop(); // Получаем ключ файла из URL
+    const key = fileUrl.split("/").pop(); // Получаем ключ файла из URL
     const command = new DeleteObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: key,
@@ -54,13 +54,20 @@ const deleteS3Object = async fileUrl => {
 // });
 
 const app = express();
-// const PORT = 4000;
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "script-src": ["'self'", "'unsafe-eval'"],
+    },
+  })
+);
 const PORT = process.env.PORT || 4000; // var for environment port or 4000
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
-const jwt = require('jsonwebtoken');
-const SECRET_KEY = process.env.JWT_SECRET_KEY || 'my_shop_project_super_secret'; // Используем переменную окружения для секрета
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = process.env.JWT_SECRET_KEY || "my_shop_project_super_secret"; // Используем переменную окружения для секрета
 
 // импортируем данные
 // const phones = require('./api/phones.json');
@@ -115,7 +122,7 @@ const SECRET_KEY = process.env.JWT_SECRET_KEY || 'my_shop_project_super_secret';
 // #endregion
 
 // #region multer-s3 (for uploads to AWS S3)
-const multer = require('multer');
+const multer = require("multer");
 
 const upload = multer({
   storage: multerS3({
@@ -126,7 +133,7 @@ const upload = multer({
     },
     key: function (req, file, cb) {
       // unique file name
-      cb(null, Date.now().toString() + '-' + file.originalname);
+      cb(null, Date.now().toString() + "-" + file.originalname);
     },
   }),
 });
@@ -136,8 +143,8 @@ app.use(cors()); // чтобы frontend мог делать запросы
 app.use(bodyParser.json()); // чтобы сервер понимал JSON в теле запросов
 
 // Тестовый роут, чтобы проверить сервер
-app.get('/', (req, res) => {
-  res.send('Backend работает и подключен к MongoDB!');
+app.get("/", (req, res) => {
+  res.send("Backend работает и подключен к MongoDB!");
 });
 
 // #region регистрация
@@ -166,26 +173,26 @@ app.get('/', (req, res) => {
 
 //   res.status(201).json({ message: 'Пользователь создан' });
 // });
-app.post('/register', async (req, res) => {
+app.post("/register", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email и пароль обязательны' });
+      return res.status(400).json({ message: "Email и пароль обязательны" });
     }
 
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ message: 'Пользователь уже существует' });
+      return res.status(400).json({ message: "Пользователь уже существует" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
 
-    res.status(201).json({ message: 'Пользователь успешно создан' });
+    res.status(201).json({ message: "Пользователь успешно создан" });
   } catch (error) {
     res.status(500).json({
-      message: 'Ошибка на сервере при регистрации',
+      message: "Ошибка на сервере при регистрации",
       error: error.message,
     });
   }
@@ -226,32 +233,32 @@ app.post('/register', async (req, res) => {
 
 //   res.json({ accessToken, refreshToken }); // Отправляем оба токена
 // });
-app.post('/login', async (req, res) => {
+app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email и пароль обязательны' });
+      return res.status(400).json({ message: "Email и пароль обязательны" });
     }
 
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Пользователь не найден' });
+      return res.status(400).json({ message: "Пользователь не найден" });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      return res.status(400).json({ message: 'Неверный пароль' });
+      return res.status(400).json({ message: "Неверный пароль" });
     }
 
     // ВАЖНО: используем _id из MongoDB
     const userData = { id: user._id, email: user.email };
-    const accessToken = jwt.sign(userData, SECRET_KEY, { expiresIn: '15m' });
-    const refreshToken = jwt.sign(userData, SECRET_KEY, { expiresIn: '7d' });
+    const accessToken = jwt.sign(userData, SECRET_KEY, { expiresIn: "15m" });
+    const refreshToken = jwt.sign(userData, SECRET_KEY, { expiresIn: "7d" });
 
     res.json({ accessToken, refreshToken });
   } catch (error) {
     res.status(500).json({
-      message: 'Ошибка на сервере при авторизации',
+      message: "Ошибка на сервере при авторизации",
       error: error.message,
     });
   }
@@ -279,17 +286,17 @@ app.post('/login', async (req, res) => {
 //   });
 // }
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
   if (!token)
-    return res.status(401).json({ message: 'Access токен не предоставлен' });
+    return res.status(401).json({ message: "Access токен не предоставлен" });
 
   jwt.verify(token, SECRET_KEY, (err, user) => {
     if (err) {
-      if (err.name === 'TokenExpiredError') {
-        return res.status(401).json({ message: 'Токен истек' });
+      if (err.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "Токен истек" });
       }
-      return res.status(403).json({ message: 'Токен недействителен' });
+      return res.status(403).json({ message: "Токен недействителен" });
     }
     req.user = user; // user будет содержать { id, email }
     next();
@@ -322,19 +329,19 @@ function authenticateToken(req, res, next) {
 //     });
 //   });
 // });
-app.post('/refresh-token', (req, res) => {
+app.post("/refresh-token", (req, res) => {
   // Этот роут остается без изменений, т.к. не работает с БД напрямую
   const { refreshToken } = req.body;
   if (!refreshToken)
-    return res.status(401).json({ message: 'Refresh токен не предоставлен' });
+    return res.status(401).json({ message: "Refresh токен не предоставлен" });
 
   jwt.verify(refreshToken, SECRET_KEY, (err, user) => {
     if (err)
-      return res.status(403).json({ message: 'Refresh токен недействителен' });
+      return res.status(403).json({ message: "Refresh токен недействителен" });
 
     const userData = { id: user.id, email: user.email };
-    const newAccessToken = jwt.sign(userData, SECRET_KEY, { expiresIn: '15m' });
-    const newRefreshToken = jwt.sign(userData, SECRET_KEY, { expiresIn: '7d' });
+    const newAccessToken = jwt.sign(userData, SECRET_KEY, { expiresIn: "15m" });
+    const newRefreshToken = jwt.sign(userData, SECRET_KEY, { expiresIn: "7d" });
 
     res.json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   });
@@ -346,14 +353,14 @@ app.post('/refresh-token', (req, res) => {
 //   const posts = readData('posts.json');
 //   res.json(posts);
 // });
-app.get('/posts', async (req, res) => {
+app.get("/posts", async (req, res) => {
   try {
     const posts = await Post.find().sort({ createdAt: -1 }); // Сортируем по дате создания
     res.json(posts);
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Не удалось загрузить посты', error: error.message });
+      .json({ message: "Не удалось загрузить посты", error: error.message });
   }
 });
 // #endregion
@@ -397,9 +404,9 @@ app.get('/posts', async (req, res) => {
 //   res.status(201).json(newPost);
 // });
 app.post(
-  '/posts',
+  "/posts",
   authenticateToken,
-  upload.array('images', 5),
+  upload.array("images", 5),
   async (req, res) => {
     try {
       const {
@@ -415,7 +422,7 @@ app.post(
       if (!title || !price) {
         return res
           .status(400)
-          .json({ message: 'Заголовок и цена обязательны' });
+          .json({ message: "Заголовок и цена обязательны" });
       }
 
       const newPost = await Post.create({
@@ -428,16 +435,16 @@ app.post(
         category,
         quality,
         ownerId: req.user.id, // ID из токена
-        images: req.files.map(file => file.location), // Ссылки из S3
+        images: req.files.map((file) => file.location), // Ссылки из S3
       });
 
       res.status(201).json(newPost);
     } catch (error) {
       res
         .status(500)
-        .json({ message: 'Не удалось создать пост', error: error.message });
+        .json({ message: "Не удалось создать пост", error: error.message });
     }
-  },
+  }
 );
 
 // #region edit post (owner only)
@@ -521,22 +528,22 @@ app.post(
 //   },
 // );
 app.put(
-  '/posts/:id',
+  "/posts/:id",
   authenticateToken,
-  upload.array('images', 5),
+  upload.array("images", 5),
   async (req, res) => {
     try {
       const { id } = req.params;
       const post = await Post.findById(id);
 
       if (!post) {
-        return res.status(404).json({ message: 'Пост не найден' });
+        return res.status(404).json({ message: "Пост не найден" });
       }
       // ВАЖНО: Сравниваем ID владельца, приведя его к строке
       if (post.ownerId.toString() !== req.user.id) {
         return res
           .status(403)
-          .json({ message: 'Нет прав на редактирование этого поста' });
+          .json({ message: "Нет прав на редактирование этого поста" });
       }
 
       // Удаление старых изображений из S3
@@ -545,11 +552,11 @@ app.put(
         for (const imageUrl of removeList) {
           await deleteS3Object(imageUrl); // Вызываем нашу новую функцию
         }
-        post.images = post.images.filter(img => !removeList.includes(img));
+        post.images = post.images.filter((img) => !removeList.includes(img));
       }
 
       // Добавление новых изображений
-      const newImages = req.files.map(file => file.location);
+      const newImages = req.files.map((file) => file.location);
 
       // Обновляем поля
       const {
@@ -577,9 +584,9 @@ app.put(
     } catch (error) {
       res
         .status(500)
-        .json({ message: 'Не удалось обновить пост', error: error.message });
+        .json({ message: "Не удалось обновить пост", error: error.message });
     }
-  },
+  }
 );
 // #endregion
 // delete post (owner only)
@@ -602,18 +609,18 @@ app.put(
 //   writeData('posts.json', posts);
 //   res.json({ message: 'Пост удалён' });
 // });
-app.delete('/posts/:id', authenticateToken, async (req, res) => {
+app.delete("/posts/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const post = await Post.findById(id);
 
     if (!post) {
-      return res.status(404).json({ message: 'Пост не найден' });
+      return res.status(404).json({ message: "Пост не найден" });
     }
     if (post.ownerId.toString() !== req.user.id) {
       return res
         .status(403)
-        .json({ message: 'Нет прав на удаление этого поста' });
+        .json({ message: "Нет прав на удаление этого поста" });
     }
 
     // Удаляем все связанные изображения из S3 перед удалением поста из БД
@@ -623,11 +630,11 @@ app.delete('/posts/:id', authenticateToken, async (req, res) => {
 
     await Post.findByIdAndDelete(id);
 
-    res.json({ message: 'Пост успешно удалён' });
+    res.json({ message: "Пост успешно удалён" });
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Не удалось удалить пост', error: error.message });
+      .json({ message: "Не удалось удалить пост", error: error.message });
   }
 });
 
@@ -639,7 +646,7 @@ app.delete('/posts/:id', authenticateToken, async (req, res) => {
 //   const myPosts = posts.filter(p => p.ownerId === req.user.id);
 //   res.json(myPosts);
 // });
-app.get('/my-posts', authenticateToken, async (req, res) => {
+app.get("/my-posts", authenticateToken, async (req, res) => {
   try {
     const myPosts = await Post.find({ ownerId: req.user.id }).sort({
       createdAt: -1,
@@ -647,36 +654,34 @@ app.get('/my-posts', authenticateToken, async (req, res) => {
     res.json(myPosts);
   } catch (error) {
     res.status(500).json({
-      message: 'Не удалось загрузить ваши посты',
+      message: "Не удалось загрузить ваши посты",
       error: error.message,
     });
   }
 });
 
-app.get('/products', async (req, res) => {
+app.get("/products", async (req, res) => {
   try {
     const products = await Product.find({});
     res.json(products);
   } catch (error) {
     res.status(500).json({
-      message: 'Не удалось загрузить товары каталога',
+      message: "Не удалось загрузить товары каталога",
       error: error.message,
     });
   }
 });
 
 // НОВЫЙ РОУТ: Получить товары для слайдера
-app.get('/hot-deals', async (req, res) => {
+app.get("/hot-deals", async (req, res) => {
   try {
     const deals = await HotDeal.find({});
     res.json(deals);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: 'Не удалось загрузить горячие предложения',
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Не удалось загрузить горячие предложения",
+      error: error.message,
+    });
   }
 });
 // server launch
