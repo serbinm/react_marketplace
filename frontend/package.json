@@ -35,7 +35,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-transition-group": "^4.4.10",
     "@typescript-eslint/parser": "^7.16.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react": "^4.7.0",
     "cypress": "^13.13.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb-typescript": "^18.0.0",
@@ -60,20 +60,13 @@
     "stylelint-config-standard": "^38.0.0",
     "typescript": "^5.2.2",
     "typescript-eslint": "^8.29.1",
-    "vite": "^5.3.1"
+    "vite": "^5.4.19"
   },
   "scripts": {
-    "start": "mate-scripts start -l",
+    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
-    "test": "mate-scripts test -l",
-    "style-format": "npx stylelint 'src/**/*.scss' --fix --allow-empty-input",
-    "lint-js": "mate-scripts lint -j",
-    "lint-css": "mate-scripts lint -s",
-    "format": "prettier --write './src/**/*.{ts,tsx}'",
-    "lint": "npm run style-format && npm run format && npm run lint-js && npm run lint-css",
-    "update": "mate-scripts update",
-    "predeploy": "npm run build",
-    "deploy": "mate-scripts deploy"
+    "preview": "vite preview"
   },
   "browserslist": {
     "production": [
