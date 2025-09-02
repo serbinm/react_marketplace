@@ -4,23 +4,24 @@ import { Product } from '../../types/Product';
 import { ProductsList } from '../ProductsList/ProductsList';
 import { ItemCard } from '../ItemCard';
 
-let filterProducts = (list: Product[], filter: any) => {
-  switch (filter) {
-    case 'year':
-      return list.filter(product => product.year === 2022);
-    case 'discount':
-      return list.sort((productA, productB) => productB.price - productA.price);
-    default:
-      return list;
-  }
-};
+// let filterProducts = (list: Product[], filter: any) => {
+//   switch (filter) {
+//     case 'year':
+//       return list.filter(product => product.year === 2022);
+//     case 'discount':
+//       return list.sort((productA, productB) => productB.price - productA.price);
+//     default:
+//       return list;
+//   }
+// };
 
 type Props = {
   breadcrumb: string;
   title: string;
   category: string;
 };
-export const Phones: React.FC<Props> = ({ breadcrumb, title, category }) => {
+
+export const Goods: React.FC<Props> = ({ breadcrumb, title, category }) => {
   const { itemId } = useParams();
 
   if (itemId) {

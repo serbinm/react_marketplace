@@ -1,79 +1,43 @@
-// import { useSearchParams } from 'react-router-dom';
 import { ProductCard } from '../ProductCard';
 import { useEffect, useState } from 'react';
 import { Product } from '../../types/Product';
 import classNames from 'classnames';
 const MAX_ITMES = 16;
+const API_URL_PRODUCTS = '/api/products';
 
 type Sort = 'newest' | 'alphabetically' | 'cheapest';
 type Quantity = 1 | 4 | 8 | 16 | 'all';
 
-// function getProducts(
-//   list: Product[],
-//   sort: Sort,
-//   number: Quantity,
-//   category: string,
-// ) {
-//   let sortedList = [...list];
+// function getProducts(list: Product[], category: string) {
+//   let filteredList = [...list];
 //   switch (category) {
 //     case 'phones':
-//       sortedList = sortedList.filter(product => product.category === 'phones');
+//       filteredList = filteredList.filter(
+//         product => product.category === 'phones',
+//       );
 //       break;
 //     case 'tablets':
-//       sortedList = sortedList.filter(product => product.category === 'tablets');
+//       filteredList = filteredList.filter(
+//         product => product.category === 'tablets',
+//       );
 //       break;
 //     case 'accessories':
-//       sortedList = sortedList.filter(
+//       filteredList = filteredList.filter(
 //         product => product.category === 'accessories',
 //       );
 //       break;
 //     default:
 //       break;
 //   }
-//   switch (sort) {
-//     case 'newest':
-//       sortedList.sort((a, b) => b.year - a.year);
-//       break;
-//     case 'alphabetically':
-//       sortedList.sort((a, b) => a.name.localeCompare(b.name));
-//       break;
-//     case 'cheapest':
-//       sortedList.sort((a, b) => a.price - b.price);
-//       break;
-//     default:
-//       break;
-//   }
 
-//   if (number !== 'all') {
-//     sortedList = sortedList.slice(0, number);
-//   }
-
-//   return sortedList;
+//   return filteredList;
 // }
-
 function getProducts(list: Product[], category: string) {
-  let filteredList = [...list];
-  switch (category) {
-    case 'phones':
-      filteredList = filteredList.filter(
-        product => product.category === 'phones',
-      );
-      break;
-    case 'tablets':
-      filteredList = filteredList.filter(
-        product => product.category === 'tablets',
-      );
-      break;
-    case 'accessories':
-      filteredList = filteredList.filter(
-        product => product.category === 'accessories',
-      );
-      break;
-    default:
-      break;
+  if (category === 'all') {
+    // Добавим случай "все товары", если понадобится
+    return [...list];
   }
-
-  return filteredList;
+  return list.filter(product => product.category === category);
 }
 
 function sortProducts(list: Product[], sort: Sort, number: Quantity) {
@@ -92,9 +56,9 @@ function sortProducts(list: Product[], sort: Sort, number: Quantity) {
       break;
   }
 
-  if (number !== 'all') {
-    sortedList = sortedList.slice(0, number);
-  }
+  // if (number !== 'all') {
+  //   sortedList = sortedList.slice(0, number);
+  // }
 
   return sortedList;
 }
@@ -125,31 +89,59 @@ export const ProductsList: React.FC<Props> = ({ title, category }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [paginationStart, setPaginationStart] = useState(1);
 
+  // old data loading with localhost:4000
+  // useEffect(() => {
+  //   fetch('/api/products.json')
+  //     .then(res => {
+  //       if (!res.ok) {
+  //         throw new Error('Ошибка загрузки данных');
+  //       }
+  //       return res.json();
+  //     })
+  //     .then(data => {
+  //       setOriginalProductList(getProducts(data, category));
+  //       let sortedList = sortProducts(originalProductList, sort, number);
+
+  //       setProductList(sortedList);
+  //     })
+  //     .catch(error => {
+  //       console.error('Fetch error:', error);
+  //     })
+  //     .finally(() => setLoading(false));
+  // }, [title, category]);
+
   useEffect(() => {
-    fetch('/api/products.json')
+    setLoading(true);
+    fetch(API_URL_PRODUCTS)
       .then(res => {
         if (!res.ok) {
-          throw new Error('Ошибка загрузки данных');
+          throw new Error('Error loading data from server');
         }
         return res.json();
       })
-      .then(data => {
-        setOriginalProductList(getProducts(data, category));
-        let sortedList = sortProducts(originalProductList, sort, number);
-
-        setProductList(sortedList);
+      .then((allProducts: Product[]) => {
+        // Фильтруем полученные данные по нужной категории
+        const categoryProducts = getProducts(allProducts, category);
+        setOriginalProductList(categoryProducts);
       })
       .catch(error => {
         console.error('Fetch error:', error);
+        // Можно добавить стейт для ошибки и показать ее пользователю
       })
-      .finally(() => setLoading(false));
-  }, [title, category]);
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [category]);
 
   useEffect(() => {
     let sortedList = sortProducts(originalProductList, sort, number);
 
     setProductList(sortedList);
   }, [sort, number, originalProductList]);
+
+  if (loading) {
+    return <div className="productsList__loader">Loading products...</div>;
+  }
 
   return (
     <>

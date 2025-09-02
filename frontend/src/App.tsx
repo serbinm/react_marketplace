@@ -3,7 +3,7 @@ import './App.scss';
 
 import { MainLayout } from './modules/MainLayout';
 import { HomePage } from './modules/HomePage/HomePage';
-import { Phones } from './modules/Phones/Phones';
+import { Goods } from './modules/Phones/Phones'; // Переименовано из Phones в Goods
 import { Tablets } from './modules/Tablets/components/Tablets';
 import { Accesories } from './modules/Accessories/components/Accessories';
 import { Favorites } from './modules/Favorites/components/Favorites';
@@ -15,7 +15,7 @@ import { UserProduct } from './modules/UserProduct';
 import { MyProducts } from './modules/MyProducts';
 import { CreatePost } from './modules/CreatePost';
 
-// Home, Phones, Tablets, Accesorries, Favourite, Cart;
+// Home, Goods, Tablets, Accesorries, Favourite, Cart;
 export const App = () => (
   <Routes>
     <Route path="/" element={<MainLayout />}>
@@ -24,7 +24,7 @@ export const App = () => (
       <Route
         path="phones"
         element={
-          <Phones
+          <Goods
             breadcrumb={'Phones'}
             title={'Mobile phones'}
             category={'phones'}
@@ -37,7 +37,7 @@ export const App = () => (
       <Route
         path="tablets"
         element={
-          <Phones
+          <Goods
             breadcrumb={'Tablets'}
             title={'Tablets'}
             category={'tablets'}
@@ -50,7 +50,7 @@ export const App = () => (
       <Route
         path="accessories"
         element={
-          <Phones
+          <Goods
             breadcrumb={'Accessories'}
             title={'Accessories'}
             category={'accessories'}

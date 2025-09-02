@@ -16,7 +16,8 @@ const refreshAuthToken = async () => {
     throw new Error('No refresh token available');
   }
 
-  const response = await fetch('http://localhost:4000/refresh-token', {
+  // const response = await fetch('http://localhost:4000/refresh-token', {
+  const response = await fetch('/api/refresh-token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
