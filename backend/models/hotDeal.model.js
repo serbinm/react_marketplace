@@ -5,8 +5,16 @@ const hotDealSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   priceRegular: { type: Number, required: true },
   category: { type: String, required: true },
-  itemId: { type: String, required: true }, // Уникальность здесь не нужна, т.к. они могут пересекаться
-  image: { type: String, required: true }, // Одна картинка
+  itemId: { type: String, required: true },
+  image: { type: String, required: true },
+  
+  // ДОБАВЛЕНЫ недостающие поля
+  screen: { type: String },
+  capacity: { type: String },
+  color: { type: String },
+  ram: { type: String },
+  year: { type: Number },
+
 }, { timestamps: true });
 
 const HotDeal = mongoose.model('HotDeal', hotDealSchema);

@@ -54,7 +54,7 @@ export const ProductSlider: React.FC<Props> = ({ title, filter }) => {
   }, []);
 
   useEffect(() => {
-    fetch('/api/products.json')
+    fetch('/api/hot-deals')
       .then(res => {
         if (!res.ok) {
           throw new Error('Ошибка загрузки данных');
@@ -113,7 +113,7 @@ export const ProductSlider: React.FC<Props> = ({ title, filter }) => {
                                 {`$${product.price}`}
                               </span>
                               <span className="product-card__price product-card__price--previous">
-                                {`$${product.fullPrice}`}
+                                {`$${product.priceRegular}`}
                               </span>
                             </div>
                           </>
@@ -153,56 +153,6 @@ export const ProductSlider: React.FC<Props> = ({ title, filter }) => {
                     </div>
                   );
                 })}
-            {/* {productsList.length > 0 &&
-              productsList.map(product => {
-                return (
-                  <div
-                    className="swiper-slide productSlider__item"
-                    key={product.id}
-                  >
-                    <div className="productSlider__card product-card">
-                      <img
-                        src={product.image}
-                        alt=""
-                        className="product-card__image"
-                      />
-                      <h3 className="product-card__title">{product.name}</h3>
-
-                      <span className="product-card__price">
-                        {product.price}
-                      </span>
-
-                      <div className="product-card__properties">
-                        <div className="product-card__property">
-                          <span className="product-card__name">Screen</span>
-                          <span className="product-card__value">
-                            {product.screen}
-                          </span>
-                        </div>
-                        <div className="product-card__property">
-                          <span className="product-card__name">Capacity</span>
-                          <span className="product-card__value">
-                            {product.capacity}
-                          </span>
-                        </div>
-                        <div className="product-card__property">
-                          <span className="product-card__name">RAM</span>
-                          <span className="product-card__value">
-                            {product.ram}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="product-card__buttons">
-                        <button className="product-card__car">
-                          Add to cart
-                        </button>
-                        <button className="product-card__favourites"></button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })} */}
           </div>
         </div>
       </div>

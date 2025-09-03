@@ -5,9 +5,11 @@ import { useContext } from 'react';
 import { FavoritesContext } from '../../contexts/';
 import { CartContext } from '../../contexts';
 import classNames from 'classnames';
+
 type Props = {
   product: Product;
 };
+
 export const ProductCard: React.FC<Props> = ({ product }) => {
   const { favorites, setFavorites } = useContext(FavoritesContext);
   const { cart, setCart } = useContext(CartContext);
@@ -21,7 +23,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         <div className="productCard__priceContainer">
           <span className="productCard__price">{`$${product.price}`}</span>
           <span className="productCard__price productCard__price--previous">
-            {`$${product.fullPrice}`}
+            {`$${product.priceRegular}`}
           </span>
         </div>
 

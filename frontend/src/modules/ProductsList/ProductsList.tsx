@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { Product } from '../../types/Product';
 import classNames from 'classnames';
 const MAX_ITMES = 16;
-const API_URL_PRODUCTS = '/api/products';
+// const API_URL_PRODUCTS = '/api/products';
+const API_URL_PRODUCTS = '/api/hot-deals';
 
 type Sort = 'newest' | 'alphabetically' | 'cheapest';
 type Quantity = 1 | 4 | 8 | 16 | 'all';
@@ -115,6 +116,7 @@ export const ProductsList: React.FC<Props> = ({ title, category }) => {
     fetch(API_URL_PRODUCTS)
       .then(res => {
         if (!res.ok) {
+          console.log(res);
           throw new Error('Error loading data from server');
         }
         return res.json();
@@ -197,9 +199,13 @@ export const ProductsList: React.FC<Props> = ({ title, category }) => {
           {productList.length > 0 &&
             productList
               .slice((currentPage - 1) * 16, currentPage * 16)
-              .map(product => (
-                <ProductCard product={product} key={product.id} />
-              ))}
+              // .map(product => (
+              //   <ProductCard product={product} key={product._id} />
+              // ))}
+              .map(product => {
+                console.log(product);
+                return <ProductCard product={product} key={product._id} />;
+              })}
         </div>
 
         {/* #region pagination */}

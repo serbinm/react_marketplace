@@ -684,6 +684,25 @@ app.get("/hot-deals", async (req, res) => {
     });
   }
 });
+
+// get product by id
+app.get("/products/:itemId", async (req, res) => {
+  try {
+    const { itemId } = req.params;
+    const product = await Product.findOne({ itemId: itemId }); // Ищем по полю itemId
+
+    if (!product) {
+      return res.status(404).json({ message: "Товар не найден" });
+    }
+
+    res.json(product);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Не удалось загрузить товар", error: error.message });
+  }
+});
+
 // server launch
 app.listen(PORT, () => {
   console.log(`Server запущен на http://localhost:${PORT}`);

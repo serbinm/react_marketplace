@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { DetailedType } from '../../types/DetailedProduct';
 import styles from './ItemCard.module.scss';
 
+const API_URL_PRODUCTS = '/api/products';
+
 const FULL_PROPERTIES: { name: string; key: keyof DetailedType }[] = [
   { name: 'Screen', key: 'screen' },
   { name: 'Resolution', key: 'resolution' },
