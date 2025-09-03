@@ -704,6 +704,11 @@ app.get("/products/:itemId", async (req, res) => {
 });
 
 // server launch
-app.listen(PORT, () => {
-  console.log(`Server запущен на http://localhost:${PORT}`);
-});
+
+module.exports = app;
+
+// local launch
+
+// app.listen(PORT, () => {
+//   console.log(`Server запущен на http://localhost:${PORT}`);
+// });
