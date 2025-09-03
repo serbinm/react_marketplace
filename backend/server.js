@@ -673,7 +673,7 @@ app.get("/products", async (req, res) => {
 });
 
 // НОВЫЙ РОУТ: Получить товары для слайдера
-app.get("/hot-deals", async (req, res) => {
+app.get("/hotdeals", async (req, res) => {
   try {
     const deals = await HotDeal.find({});
     res.json(deals);
